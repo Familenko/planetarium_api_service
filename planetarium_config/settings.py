@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # third party apps
+    'rest_framework',
+
     # custom apps
     'planetarium',
 ]
@@ -52,7 +55,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'djangoRESTProject.urls'
+ROOT_URLCONF = 'planetarium_config.urls'
 
 TEMPLATES = [
     {
