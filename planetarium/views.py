@@ -13,6 +13,7 @@ from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSe
 from planetarium.serializers.astronomy_show import AstronomyShowSerializer, AstronomyShowListSerializer, \
     AstronomyShowDetailSerializer
 from planetarium.serializers.planetarium_dome import PlanetariumDomeSerializer
+from planetarium.serializers.reservation import ReservationSerializer, ReservationListSerializer
 
 from planetarium.serializers.show_session import (
     ShowSessionListSerializer,
@@ -100,3 +101,36 @@ class ShowThemeViewSet(viewsets.ModelViewSet):
             return ShowThemeDetailSerializer
 
         return ShowThemeSerializer
+
+
+class ReservationPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 100
+
+
+class OrderViewSet(
+    mixins.ListModelMixin,
+    mixins.CreateModelMixin,
+    GenericViewSet,
+):
+    queryset = Reservation.objects.prefetch_related(
+        "tickets",
+        "tickets__show_session",
+        "tickets__show_session__astronomy_show",
+        "tickets__show_session__planetarium_dome",
+    )
+
+    serializer_class = ReservationSerializer
+    pagination_class = ReservationPagination
+
+    def get_queryset(self):
+        return Reservation.objects.filter(user=self.request.user)
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return ReservationListSerializer
+
+        return ReservationSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)

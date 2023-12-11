@@ -28,3 +28,18 @@ class TicketSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Ticket already exists")
 
         return attrs
+
+
+class TicketListSerializer(TicketSerializer):
+    show_session = serializers.StringRelatedField(many=False, read_only=True)
+    reservation = serializers.StringRelatedField(many=False, read_only=True)
+
+    class Meta:
+        model = Ticket
+        fields = ("id", "reservation", "show_session", "row", "seat")
+
+
+class TicketSeatsSerializer(TicketSerializer):
+    class Meta:
+        model = Ticket
+        fields = ("row", "seat")

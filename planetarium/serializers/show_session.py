@@ -5,7 +5,7 @@ from planetarium.models import ShowSession
 
 from planetarium.serializers.astronomy_show import AstronomyShowSerializer
 from planetarium.serializers.planetarium_dome import PlanetariumDomeSerializer
-from planetarium.serializers.ticket import TicketSerializer
+from planetarium.serializers.ticket import TicketSeatsSerializer
 
 
 class ShowSessionSerializer(serializers.ModelSerializer):
@@ -24,7 +24,7 @@ class ShowSessionDetailSerializer(ShowSessionSerializer):
     astronomy_show = AstronomyShowSerializer(many=False, read_only=True)
     planetarium_dome = PlanetariumDomeSerializer(many=False, read_only=True)
 
-    taken_places = TicketSerializer(
+    taken_places = TicketSeatsSerializer(
         source="tickets", many=True, read_only=True
     )
 
