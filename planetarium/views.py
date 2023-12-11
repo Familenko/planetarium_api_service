@@ -108,7 +108,7 @@ class ReservationPagination(PageNumberPagination):
     max_page_size = 100
 
 
-class OrderViewSet(
+class ReservationViewSet(
     mixins.ListModelMixin,
     mixins.CreateModelMixin,
     GenericViewSet,
