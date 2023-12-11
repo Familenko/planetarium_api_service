@@ -1,5 +1,11 @@
-from django.contrib import admin
 from django.urls import path, include
+from rest_framework import routers
 
-urlpatterns = [
-]
+from planetarium.views import ShowSessionViewSet
+
+router = routers.DefaultRouter()
+router.register("show_session", ShowSessionViewSet)
+
+urlpatterns = [path("", include(router.urls))]
+
+app_name = "planetarium"
