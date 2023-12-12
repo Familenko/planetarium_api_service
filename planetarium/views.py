@@ -2,6 +2,7 @@ from django.shortcuts import render
 from datetime import datetime
 
 from django.db.models import F, Count
+from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
@@ -57,6 +58,29 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
             return ShowSessionDetailSerializer
 
         return ShowSessionSerializer
+
+    # Only for documentation purposes
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "show_id",
+                type=int,
+                description="Filter by show id (ex. ?show_id=2)",
+            ),
+            OpenApiParameter(
+                "show_name",
+                type=str,
+                description="Filter by show name (ex. ?show_name=show)",
+            ),
+            OpenApiParameter(
+                "date",
+                type=str,
+                description="Filter by date (ex. ?date=2021-01-01)",
+            ),
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class PlanetariumDomeViewSet(
@@ -140,6 +164,24 @@ class ShowThemeViewSet(
             return ShowThemeDetailSerializer
 
         return ShowThemeSerializer
+
+    # Only for documentation purposes
+    @extend_schema(
+        parameters=[
+            OpenApiParameter(
+                "show_id",
+                type=int,
+                description="Filter by show id (ex. ?show_id=2)",
+            ),
+            OpenApiParameter(
+                "show_name",
+                type=str,
+                description="Filter by show name (ex. ?show_name=show)",
+            ),
+        ]
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class ReservationPagination(PageNumberPagination):
