@@ -12,7 +12,7 @@ class ShowThemeSerializer(serializers.ModelSerializer):
 class ShowThemeListSerializer(ShowThemeSerializer):
     class Meta:
         model = ShowTheme
-        fields = ("id", "name")
+        fields = "__all__"
 
 
 class ShowThemeDetailSerializer(ShowThemeSerializer):

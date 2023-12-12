@@ -27,8 +27,10 @@ class ReservationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         tickets_data = validated_data.pop("tickets")
         order = Reservation.objects.create(**validated_data)
-        tickets = [Ticket(order=order, **ticket_data) for ticket_data in tickets_data]
-        Ticket.objects.bulk_create(tickets)
+
+        for ticket_data in tickets_data:
+            ticket_data["reservation"] = order
+            Ticket.objects.create(**ticket_data)
 
         return order
 

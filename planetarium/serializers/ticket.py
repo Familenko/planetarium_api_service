@@ -6,7 +6,7 @@ from planetarium.models import Ticket
 class TicketSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ticket
-        fields = ("reservation", "show_session", "row", "seat")
+        fields = ("show_session", "row", "seat")
 
     def validate(self, attrs):
         row = attrs.get("row")

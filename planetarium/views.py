@@ -122,6 +122,7 @@ class ReservationViewSet(
 
     serializer_class = ReservationSerializer
     pagination_class = ReservationPagination
+    # permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         return Reservation.objects.filter(user=self.request.user)
