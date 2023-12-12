@@ -1,10 +1,12 @@
 from django.db import models
 from django.conf import settings
+from planetarium.utils import show_image_file_path
 
 
 class AstronomyShow(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
+    image = models.ImageField(null=True, upload_to=show_image_file_path)
 
     class Meta:
         ordering = ["title"]
