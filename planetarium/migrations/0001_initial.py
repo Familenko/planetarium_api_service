@@ -121,7 +121,8 @@ class Migration(migrations.Migration):
                 (
                     "astronomy_show",
                     models.ManyToManyField(
-                        related_name="show_themes", to="planetarium.astronomyshow"
+                        related_name="show_themes",
+                        to="planetarium.astronomyshow"
                     ),
                 ),
             ],

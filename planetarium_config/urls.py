@@ -10,8 +10,14 @@ from drf_spectacular.views import (
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/user/", include("user.urls", namespace="user")),
-    path("api/planetarium/", include("planetarium.urls", namespace="planetarium")),
+    path(
+        "api/user/",
+        include("user.urls",
+                namespace="user")),
+    path(
+        "api/planetarium/",
+        include("planetarium.urls",
+                namespace="planetarium")),
 ]
 
 # debug toolbar
@@ -28,7 +34,8 @@ urlpatterns += [
         name="swagger-ui",
     ),
     path(
-        "api/doc/redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"
+        "api/doc/redoc/", SpectacularRedocView.as_view(
+            url_name="schema"), name="redoc"
     ),
 ]
 

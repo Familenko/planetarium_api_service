@@ -25,7 +25,11 @@ class ShowSessionDetailSerializer(ShowSessionSerializer):
     astronomy_show = AstronomyShowSerializer(many=False, read_only=True)
     planetarium_dome = PlanetariumDomeSerializer(many=False, read_only=True)
 
-    taken_places = TicketSeatsSerializer(source="tickets", many=True, read_only=True)
+    taken_places = TicketSeatsSerializer(
+        source="tickets",
+        many=True,
+        read_only=True
+    )
 
     class Meta:
         model = ShowSession
@@ -39,8 +43,12 @@ class ShowSessionDetailSerializer(ShowSessionSerializer):
 
 
 class ShowSessionListSerializer(ShowSessionSerializer):
-    astronomy_show = serializers.StringRelatedField(many=False, read_only=True)
-    planetarium_dome = serializers.StringRelatedField(many=False, read_only=True)
+    astronomy_show = serializers.StringRelatedField(
+        many=False, read_only=True
+    )
+    planetarium_dome = serializers.StringRelatedField(
+        many=False, read_only=True
+    )
     tickets_available = serializers.SerializerMethodField(
         method_name="get_tickets_available"
     )

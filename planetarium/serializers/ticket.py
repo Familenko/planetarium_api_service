@@ -14,18 +14,28 @@ class TicketSerializer(serializers.ModelSerializer):
         show_session = attrs.get("show_session")
 
         if row < 0:
-            raise serializers.ValidationError("Row can't be negative")
+            raise serializers.ValidationError(
+                "Row can't be negative"
+            )
         if seat < 0:
-            raise serializers.ValidationError("Seat can't be negative")
+            raise serializers.ValidationError(
+                "Seat can't be negative"
+            )
 
         if row > show_session.planetarium_dome.rows:
-            raise serializers.ValidationError("Row can't be bigger than rows in dome")
+            raise serializers.ValidationError(
+                "Row can't be bigger than rows in dome"
+            )
         if seat > show_session.planetarium_dome.seats_in_row:
-            raise serializers.ValidationError("Seat can't be bigger than seats in row")
+            raise serializers.ValidationError(
+                "Seat can't be bigger than seats in row"
+            )
 
         is_unique = (
-            Ticket.objects.filter(show_session=show_session, row=row, seat=seat).count()
-            == 0
+            Ticket.objects.filter(
+                show_session=show_session,
+                row=row,
+                seat=seat).count() == 0
         )
         if not is_unique:
             raise serializers.ValidationError("Ticket already exists")

@@ -65,7 +65,9 @@ class ShowSessionViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(astronomy_show_id=show_id)
 
         if show_name:
-            queryset = queryset.filter(astronomy_show__title__icontains=show_name)
+            queryset = queryset.filter(
+                astronomy_show__title__icontains=show_name
+            )
 
         return queryset
 
