@@ -2,7 +2,6 @@ from django.utils import timezone
 from rest_framework import serializers
 
 from planetarium.models import ShowSession
-
 from planetarium.serializers.astronomy_show import AstronomyShowSerializer
 from planetarium.serializers.planetarium_dome import PlanetariumDomeSerializer
 from planetarium.serializers.ticket import TicketSeatsSerializer

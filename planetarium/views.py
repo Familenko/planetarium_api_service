@@ -1,7 +1,5 @@
-from django.shortcuts import render
 from datetime import datetime
 
-from django.db.models import F, Count
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, mixins, status
 from rest_framework.decorators import action
@@ -10,18 +8,39 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
-from planetarium.models import AstronomyShow, ShowTheme, PlanetariumDome, ShowSession, Reservation, Ticket
-from planetarium.serializers.astronomy_show import AstronomyShowSerializer, AstronomyShowListSerializer, \
-    AstronomyShowDetailSerializer, AstronomyShowImageSerializer
+from planetarium.models import (
+    AstronomyShow,
+    ShowTheme,
+    PlanetariumDome,
+    ShowSession,
+    Reservation,
+)
+
+from planetarium.serializers.astronomy_show import (
+    AstronomyShowSerializer,
+    AstronomyShowListSerializer,
+    AstronomyShowDetailSerializer,
+    AstronomyShowImageSerializer,
+)
+
 from planetarium.serializers.planetarium_dome import PlanetariumDomeSerializer
-from planetarium.serializers.reservation import ReservationSerializer, ReservationListSerializer
+from planetarium.serializers.reservation import (
+    ReservationSerializer,
+    ReservationListSerializer,
+)
 
 from planetarium.serializers.show_session import (
     ShowSessionListSerializer,
     ShowSessionDetailSerializer,
     ShowSessionSerializer,
 )
-from planetarium.serializers.show_theme import ShowThemeSerializer, ShowThemeListSerializer, ShowThemeDetailSerializer
+
+from planetarium.serializers.show_theme import (
+    ShowThemeSerializer,
+    ShowThemeListSerializer,
+    ShowThemeDetailSerializer,
+)
+
 from planetarium.permissions import IsAdminOrIfAuthenticatedReadOnly
 
 
@@ -122,7 +141,6 @@ class AstronomyShowViewSet(
         permission_classes=[IsAdminUser],
     )
     def upload_image(self, request, pk=None):
-        """Endpoint for uploading image to specific movie"""
         movie = self.get_object()
         serializer = self.get_serializer(movie, data=request.data)
 
