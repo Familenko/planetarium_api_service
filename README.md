@@ -54,3 +54,15 @@ API for planetarium service
 • Filtering shows
 
 ![schema](planetarium_diagram.png)
+![1](readme_img/1.png)
+![2](readme_img/2.png)
+![3](readme_img/3.png)
+![4](readme_img/4.png)
+![5](readme_img/5.png)
+![6](readme_img/6.png)
+![7](readme_img/7.png)
+![8](readme_img/8.png)
+![9](readme_img/9.png)
+![10](readme_img/10.png)
+![11](readme_img/11.png)
+![12](readme_img/12.png)
