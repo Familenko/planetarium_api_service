@@ -16,9 +16,7 @@ class ShowThemeListSerializer(ShowThemeSerializer):
 
 
 class ShowThemeDetailSerializer(ShowThemeSerializer):
-    shows = serializers.SerializerMethodField(
-        method_name="get_shows"
-    )
+    shows = serializers.SerializerMethodField(method_name="get_shows")
 
     class Meta:
         model = ShowTheme

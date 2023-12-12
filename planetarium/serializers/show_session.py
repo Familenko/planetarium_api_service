@@ -15,7 +15,9 @@ class ShowSessionSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         show_time = attrs.get("show_time")
         if show_time < timezone.now():
-            raise serializers.ValidationError("You can't create show session in the past")
+            raise serializers.ValidationError(
+                "You can't create show session in the past"
+            )
         return attrs
 
 
@@ -23,13 +25,17 @@ class ShowSessionDetailSerializer(ShowSessionSerializer):
     astronomy_show = AstronomyShowSerializer(many=False, read_only=True)
     planetarium_dome = PlanetariumDomeSerializer(many=False, read_only=True)
 
-    taken_places = TicketSeatsSerializer(
-        source="tickets", many=True, read_only=True
-    )
+    taken_places = TicketSeatsSerializer(source="tickets", many=True, read_only=True)
 
     class Meta:
         model = ShowSession
-        fields = ("id", "astronomy_show", "planetarium_dome", "show_time", "taken_places")
+        fields = (
+            "id",
+            "astronomy_show",
+            "planetarium_dome",
+            "show_time",
+            "taken_places",
+        )
 
 
 class ShowSessionListSerializer(ShowSessionSerializer):

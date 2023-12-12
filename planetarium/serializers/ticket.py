@@ -23,7 +23,10 @@ class TicketSerializer(serializers.ModelSerializer):
         if seat > show_session.planetarium_dome.seats_in_row:
             raise serializers.ValidationError("Seat can't be bigger than seats in row")
 
-        is_unique = Ticket.objects.filter(show_session=show_session, row=row, seat=seat).count() == 0
+        is_unique = (
+            Ticket.objects.filter(show_session=show_session, row=row, seat=seat).count()
+            == 0
+        )
         if not is_unique:
             raise serializers.ValidationError("Ticket already exists")
 

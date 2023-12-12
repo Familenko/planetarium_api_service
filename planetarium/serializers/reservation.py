@@ -20,7 +20,9 @@ class ReservationSerializer(serializers.ModelSerializer):
         show_session = tickets[0].get("show_session")
         for ticket in tickets:
             if ticket.get("show_session") != show_session:
-                raise serializers.ValidationError("All tickets must be for the same show session")
+                raise serializers.ValidationError(
+                    "All tickets must be for the same show session"
+                )
         return attrs
 
     @transaction.atomic
