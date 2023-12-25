@@ -45,13 +45,12 @@ from planetarium.permissions import IsAdminOrIfAuthenticatedReadOnly
 
 
 class ShowSessionViewSet(viewsets.ModelViewSet):
-    queryset = ShowSession.objects.all().select_related(
-        "astronomy_show", "planetarium_dome"
-    )
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = ShowSession.objects.select_related(
+            "astronomy_show", "planetarium_dome"
+        )
 
         date = self.request.query_params.get("date")
         show_id = self.request.query_params.get("show_id")
@@ -120,7 +119,7 @@ class AstronomyShowViewSet(
     mixins.RetrieveModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = AstronomyShow.objects.all().prefetch_related("show_themes")
+    queryset = AstronomyShow.objects.prefetch_related("show_themes")
     serializer_class = AstronomyShowSerializer
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
@@ -159,11 +158,10 @@ class ShowThemeViewSet(
     mixins.RetrieveModelMixin,
     GenericViewSet,
 ):
-    queryset = ShowTheme.objects.all()
     permission_classes = (IsAdminOrIfAuthenticatedReadOnly,)
 
     def get_queryset(self):
-        queryset = self.queryset
+        queryset = ShowTheme.objects.all()
 
         show_id = self.request.query_params.get("show_id")
         show_name = self.request.query_params.get("show_name")
@@ -226,7 +224,13 @@ class ReservationViewSet(
     permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
-        return Reservation.objects.filter(user=self.request.user)
+        queryset = Reservation.objects.prefetch_related(
+            "tickets",
+            "tickets__show_session",
+            "tickets__show_session__astronomy_show",
+            "tickets__show_session__planetarium_dome",
+        )
+        return queryset.filter(user=self.request.user)
 
     def get_serializer_class(self):
         if self.action == "list":
