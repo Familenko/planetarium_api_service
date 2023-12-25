@@ -1,0 +1,9 @@
+README.md
+.gitignore
+venv/
+.git
+.idea
+*.pyc
+__pycache__
+.DS_Store
+**db.sqlite3
